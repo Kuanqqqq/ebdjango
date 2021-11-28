@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Choose A CPU{% endblock%}
+{% block content %}
+    <div class="container mt-5">
+        <div class="center" style="margin-top:30px">
+            <div class="text-center table-responsive-sm">
+                <h1>Choose A CPU</h1>
+                {{cpu_lst}}
+                <table class="table" id="dataTables-filter">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Core Count</th>
+                            <th>Core Clock</th>
+                            <th>Boost Clock</th>
+                            <th>TDP</th>
+                            <th>Integrated Graphics</th>
+                            <th>SMT</th>
+                            <th>Rating</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            console.info('test')
+            // using ajax to call a function 'get_all_cpus' to retrive data then render them on table. 
+            $('#dataTables-filter').DataTable({
+                "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+                "processing": true,
+                "serverSide": true,
+                "order": [[0, 'asc'],],
+                "ajax": "/products/get_all_cpus/",
+                "columns": [
+                    {data: "id"},
+                    {data: "name"},
+                    {data: "core_count"},
+                    {data: "core_clock"},
+                    {data: "boost_clock"},
+                    {data: "TDP"},
+                    {data: "integrated_graphics"},
+                    {data: "SMT"},
+                    {data: "rating"},
+                    {data: "price"},
+                    {data: "action"},
+                ],
+            })
+        } );
+    </script>
+{% endblock %}
